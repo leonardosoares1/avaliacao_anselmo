@@ -1,0 +1,26 @@
+# Application
+.env*
+!.env.example
+
+# Database
+ormconfig*
+!ormconfig.example.json
+
+# Yarn
+node_modules
+yarn-error.log
+
+# Jest
+coverage
+
+# Dist
+dist/
+tsconfig.tsbuildinfo
+
+#Upload Files
+files/**/*
+!files/**/
+!files/uploads/.gitkeep
+
+#MacOS
+.DS_Store
