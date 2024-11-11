@@ -4,6 +4,10 @@ import CreatePost, {
   DatabaseFactory as CreatePostDatabaseFactory,
   InputData as CreatePostInputData,
 } from '@modules/posts/useCases/CreatePost';
+import GetPostInfo, {
+  DatabaseFactory as GetPostInfoDatabaseFactory,
+  InputData as GetPostInfoInputData,
+} from '@modules/posts/useCases/GetPostInfo';
 
 import HttpCodes from '@shared/core/HttpCodes';
 import ResponseController from '@shared/core/ResponseController';
@@ -17,6 +21,18 @@ interface IStoreRequestBody {
 }
 interface IStoreResponse extends ResponseController {
   id: number;
+}
+
+interface IShowRequestParams extends Record<string, string> {
+  id: string;
+}
+interface IShowResponse {
+  content: string;
+  id: number;
+  is_active: boolean;
+  subtitle: string;
+  thumbnail: string;
+  title: string;
 }
 
 class PostsController {
@@ -37,6 +53,26 @@ class PostsController {
     return response.status(HttpCodes.Created).json({
       id: postCreated.id,
       message: 'Publicação criada com sucesso',
+    });
+  }
+
+  public async show(
+    request: Request<IShowRequestParams>,
+    response: Response<IShowResponse>,
+  ): Promise<Response> {
+    const databaseFactory = new GetPostInfoDatabaseFactory();
+    const useCase = new GetPostInfo(databaseFactory);
+    const inputData = new GetPostInfoInputData({
+      id: Number(request.params.id),
+    });
+    const post = await useCase.execute(inputData);
+    return response.status(HttpCodes.Ok).json({
+      content: post.content,
+      id: post.id,
+      is_active: post.isActive,
+      subtitle: post.subtitle,
+      thumbnail: post.thumbnail,
+      title: post.title,
     });
   }
 }

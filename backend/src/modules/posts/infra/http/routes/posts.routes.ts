@@ -14,4 +14,6 @@ router.post(
   controller.store,
 );
 
+router.get('/:id', [isAdminAuthenticated.execute], controller.show);
+
 export default router;
