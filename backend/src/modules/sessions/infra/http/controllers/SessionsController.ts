@@ -10,12 +10,13 @@ import GetSessionInfo, {
 } from '@modules/sessions/useCases/GetSessionInfo';
 
 import HttpCodes from '@shared/core/HttpCodes';
+import ResponseController from '@shared/core/ResponseController';
 
 interface IStoreRequestBody {
   email: string;
   password: string;
 }
-interface IStoreResponse {
+interface IStoreResponse extends ResponseController {
   token: string;
 }
 
@@ -38,6 +39,7 @@ class SessionsController {
     });
     const sessionCreated = await useCase.execute(inputData);
     return response.status(HttpCodes.Created).json({
+      message: 'Autenticação feita com sucesso',
       token: sessionCreated.token,
     });
   }

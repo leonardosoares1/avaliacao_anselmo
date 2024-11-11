@@ -1,9 +1,9 @@
 import { Router } from 'express';
 
-import sessionsRoutes from './sessions.routes';
+import postsRoutes from './posts.routes';
 
 const router = Router();
 
-router.use(sessionsRoutes);
+router.use(postsRoutes);
 
 export default router;
