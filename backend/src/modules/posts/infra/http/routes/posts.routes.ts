@@ -10,10 +10,16 @@ const isAdminAuthenticated = new IsAdminAuthenticated();
 
 router.post(
   '/',
-  [isAdminAuthenticated.execute, validation.create],
+  [isAdminAuthenticated.execute, validation.store],
   controller.store,
 );
 
 router.get('/:id', [isAdminAuthenticated.execute], controller.show);
+
+router.put(
+  '/:id',
+  [isAdminAuthenticated.execute, validation.update],
+  controller.update,
+);
 
 export default router;

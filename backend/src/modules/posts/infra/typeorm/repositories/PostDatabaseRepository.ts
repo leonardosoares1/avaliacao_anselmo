@@ -3,6 +3,7 @@ import { Repository } from 'typeorm';
 import CreatePostInputData from '@modules/posts/repositories/dtos/postRepository/create/InputData';
 import CreatePostOutputData from '@modules/posts/repositories/dtos/postRepository/create/OutputData';
 import FindPostByIdOutputData from '@modules/posts/repositories/dtos/postRepository/findById/OutputData';
+import UpdatePostInputData from '@modules/posts/repositories/dtos/postRepository/update/InputData';
 import IPostRepository from '@modules/posts/repositories/IPostRepository';
 
 import databaseAdapter from '@shared/adapters/database';
@@ -92,6 +93,25 @@ class PostDatabaseRepository implements IPostRepository {
         title: post.title,
       });
       return output;
+    } catch (err) {
+      const error = new CaughtError(err);
+      throw new DatabaseError(error.getMessage());
+    }
+  }
+
+  public async update(inputData: UpdatePostInputData): Promise<void> {
+    try {
+      await this.postRepository.update(
+        {
+          id: inputData.id,
+        },
+        {
+          content: inputData.content,
+          subtitle: inputData.subtitle,
+          thumbnail: inputData.thumbnail,
+          title: inputData.title,
+        },
+      );
     } catch (err) {
       const error = new CaughtError(err);
       throw new DatabaseError(error.getMessage());

@@ -8,6 +8,10 @@ import GetPostInfo, {
   DatabaseFactory as GetPostInfoDatabaseFactory,
   InputData as GetPostInfoInputData,
 } from '@modules/posts/useCases/GetPostInfo';
+import UpdatePost, {
+  DatabaseFactory as UpdatePostDatabaseFactory,
+  InputData as UpdatePostInputData,
+} from '@modules/posts/useCases/UpdatePost';
 
 import HttpCodes from '@shared/core/HttpCodes';
 import ResponseController from '@shared/core/ResponseController';
@@ -30,6 +34,16 @@ interface IShowResponse {
   content: string;
   id: number;
   is_active: boolean;
+  subtitle: string;
+  thumbnail: string;
+  title: string;
+}
+
+interface IUpdateRequestParams extends Record<string, string> {
+  id: string;
+}
+interface IUpdateRequestBody {
+  content: string;
   subtitle: string;
   thumbnail: string;
   title: string;
@@ -73,6 +87,25 @@ class PostsController {
       subtitle: post.subtitle,
       thumbnail: post.thumbnail,
       title: post.title,
+    });
+  }
+
+  public async update(
+    request: Request<IUpdateRequestParams, unknown, IUpdateRequestBody>,
+    response: Response<ResponseController>,
+  ): Promise<Response> {
+    const databaseFactory = new UpdatePostDatabaseFactory();
+    const useCase = new UpdatePost(databaseFactory);
+    const inputData = new UpdatePostInputData({
+      content: request.body.content,
+      id: Number(request.params.id),
+      subtitle: request.body.subtitle,
+      thumbnail: request.body.thumbnail,
+      title: request.body.title,
+    });
+    await useCase.execute(inputData);
+    return response.status(HttpCodes.Ok).json({
+      message: 'Publicação alterada com sucesso',
     });
   }
 }
