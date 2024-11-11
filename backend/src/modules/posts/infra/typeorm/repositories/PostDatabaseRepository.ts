@@ -41,6 +41,38 @@ class PostDatabaseRepository implements IPostRepository {
     }
   }
 
+  public async disable(id: number): Promise<void> {
+    try {
+      await this.postRepository.update(
+        {
+          id,
+        },
+        {
+          isActive: false,
+        },
+      );
+    } catch (err) {
+      const error = new CaughtError(err);
+      throw new DatabaseError(error.getMessage());
+    }
+  }
+
+  public async enable(id: number): Promise<void> {
+    try {
+      await this.postRepository.update(
+        {
+          id,
+        },
+        {
+          isActive: true,
+        },
+      );
+    } catch (err) {
+      const error = new CaughtError(err);
+      throw new DatabaseError(error.getMessage());
+    }
+  }
+
   public async findById(
     id: number,
   ): Promise<FindPostByIdOutputData | undefined> {
