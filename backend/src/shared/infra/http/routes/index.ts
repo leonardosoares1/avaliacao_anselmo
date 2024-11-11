@@ -2,6 +2,7 @@ import { Router } from 'express';
 
 import generalConfig from '@config/general';
 
+import filesRoutes from '@modules/files/infra/http/routes/files.routes';
 import postsRoutes from '@modules/posts/infra/http/routes';
 import sessionsRoutes from '@modules/sessions/infra/http/routes';
 
@@ -17,5 +18,6 @@ routes.get('/status', (_, response) => {
 
 routes.use('/posts', postsRoutes);
 routes.use('/sessions', sessionsRoutes);
+routes.use('/files', filesRoutes);
 
 export default routes;
