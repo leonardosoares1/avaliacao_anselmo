@@ -3,14 +3,8 @@ import path from 'node:path';
 
 import getRootPath from '@shared/helpers/getRootPath';
 
-import generalConfig from './general';
-
 function getTempFolder(): string {
-  let tmpFolder = path.resolve(getRootPath(), 'files');
-  if (generalConfig.environment === 'development') {
-    tmpFolder = path.resolve(getRootPath(), '..', 'files');
-  }
-  return tmpFolder;
+  return path.resolve(getRootPath(), '..', 'files');
 }
 
 const multerConfig = {
