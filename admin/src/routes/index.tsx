@@ -1,7 +1,8 @@
 import { Route, Routes } from 'react-router-dom';
 
+import PostList from '@pages/Post/List';
+
 import pages from '../constants/pages';
-import PostList from '../pages/Post/index';
 
 const MainRoutes = () => {
   return (

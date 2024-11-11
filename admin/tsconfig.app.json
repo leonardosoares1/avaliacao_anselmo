@@ -19,8 +19,16 @@
     "strict": true,
     "target": "ES2020",
     "paths": {
+      "@assets/*": ["assets/*"],
       "@components/*":["components/*"],
       "@lib/*": ["lib/*"],
+      "@pages/*": ["pages/*"],
+      "@constants/*": ["constants/*"],
+      "@styles/*": ["styles/*"],
+      "@utils/*": ["utils/*"],
+      "@routes/*": ["routes/*"],
+      "@services/*": ["services/*"],
+
     },
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
     "useDefineForClassFields": true,
