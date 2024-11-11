@@ -1,13 +1,9 @@
 import { Request, Response } from 'express';
 
-import CreateSession, {
-  DatabaseFactory as CreateSessionDatabaseFactory,
-  InputData as CreateSessionInputData,
-} from '@modules/sessions/useCases/CreateSession';
-import GetSessionInfo, {
-  DatabaseFactory as GetSessionInfoDatabaseFactory,
-  InputData as GetSessionInfoInputData,
-} from '@modules/sessions/useCases/GetSessionInfo';
+import CreatePost, {
+  DatabaseFactory as CreatePostDatabaseFactory,
+  InputData as CreatePostInputData,
+} from '@modules/posts/useCases/CreatePost';
 
 import HttpCodes from '@shared/core/HttpCodes';
 import ResponseController from '@shared/core/ResponseController';
@@ -23,36 +19,26 @@ interface IStoreResponse extends ResponseController {
   id: number;
 }
 
-class SessionsController {
+class PostsController {
   public async store(
     request: Request<unknown, unknown, IStoreRequestBody>,
     response: Response<IStoreResponse>,
   ): Promise<Response> {
-    const databaseFactory = new CreateSessionDatabaseFactory();
-    const useCase = new CreateSession(databaseFactory);
-    const inputData = new CreateSessionInputData({
-      email: request.body.email,
-      password: request.body.password,
+    const databaseFactory = new CreatePostDatabaseFactory();
+    const useCase = new CreatePost(databaseFactory);
+    const inputData = new CreatePostInputData({
+      content: request.body.content,
+      isActive: request.body.is_active,
+      subtitle: request.body.subtitle,
+      thumbnail: request.body.thumbnail,
+      title: request.body.title,
     });
-    const sessionCreated = await useCase.execute(inputData);
+    const postCreated = await useCase.execute(inputData);
     return response.status(HttpCodes.Created).json({
-      token: sessionCreated.token,
-    });
-  }
-
-  public async show(request: Request, response: Response<IShowResponse>) {
-    const databaseFactory = new GetSessionInfoDatabaseFactory();
-    const useCase = new GetSessionInfo(databaseFactory);
-    const inputData = new GetSessionInfoInputData({
-      id: request.admin.id,
-    });
-    const info = await useCase.execute(inputData);
-    return response.status(HttpCodes.Ok).json({
-      email: info.email,
-      id: info.id,
-      name: info.name,
+      id: postCreated.id,
+      message: 'Publicação criada com sucesso',
     });
   }
 }
 
-export default new SessionsController();
+export default new PostsController();
