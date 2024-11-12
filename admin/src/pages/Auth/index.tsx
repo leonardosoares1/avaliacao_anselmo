@@ -57,8 +57,12 @@ const Auth = () => {
   return (
     <main className="flex items-center justify-center min-h-screen bg-white">
       <Card className="w-[450px] p-4">
-        <CardTitle className="text-4xl">Login</CardTitle>
-        <CardDescription>Preencha os dados para o login</CardDescription>
+        <CardTitle className="text-4xl font-bold text-blue-400">
+          Login
+        </CardTitle>
+        <CardDescription className="text-blue-400">
+          Preencha os dados para o login
+        </CardDescription>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(handleSubmit)}>
             <div className={'mt-4 grid gap-5'}>
@@ -93,7 +97,10 @@ const Auth = () => {
             </div>
 
             <div className="flex justify-end mt-6">
-              <Button className="w-44" type="submit">
+              <Button
+                className="w-44 bg-blue-400 hover:bg-blue-500 text-white"
+                type="submit"
+              >
                 Confirmar
               </Button>
             </div>

@@ -110,8 +110,9 @@ const PostFilter: ForwardRefRenderFunction<IRefProps, IProps> = (
           )}
         />
         <Button
+          className="bg-blue-400 text-white hover:bg-blue-500"
           disabled={isLoading}
-          size={'icon'}
+          size="icon"
           title="Pesquisar"
           type="submit"
         >
@@ -120,10 +121,10 @@ const PostFilter: ForwardRefRenderFunction<IRefProps, IProps> = (
         <Button
           disabled={isLoading}
           onClick={onClear}
-          size={'icon'}
+          size="icon"
           title="Limpar pesquisa"
           type="button"
-          variant={'destructive'}
+          variant="destructive"
         >
           <X size={21} strokeWidth={1.5} />
         </Button>

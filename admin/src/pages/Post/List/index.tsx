@@ -143,7 +143,7 @@ const PostList = () => {
         <PageTitle>Publicações</PageTitle>
         <div className="grid grid-cols-[auto] justify-end">
           <Link to={pages.post.create}>
-            <Button>
+            <Button className="bg-blue-400 text-white hover:bg-blue-500">
               Nova publicação
               <Plus size={25} strokeWidth={1.5} />
             </Button>

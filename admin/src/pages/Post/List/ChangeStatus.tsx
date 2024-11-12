@@ -144,7 +144,12 @@ const PostChangeStatus: ForwardRefRenderFunction<IRefProps, IProps> = (
           >
             Cancelar
           </Button>
-          <Button disabled={isLoading} onClick={handleConfirm} type="button">
+          <Button
+            className="bg-blue-400 text-white hover:bg-blue-500"
+            disabled={isLoading}
+            onClick={handleConfirm}
+            type="button"
+          >
             Sim, tenho certeza
           </Button>
         </DialogFooter>

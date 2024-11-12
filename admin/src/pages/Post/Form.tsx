@@ -35,7 +35,7 @@ const PostForm = ({ defaultValues, isLoading, onSubmit, title }: IProps) => {
   const form = useForm<FormType>({
     resolver: zodResolver(schema),
     defaultValues: {
-      isActive: defaultValues?.isActive ? '1' : '0',
+      isActive: defaultValues?.isActive ? '0' : '1',
       content: defaultValues?.content || '',
       subtitle: defaultValues?.subtitle || '',
       thumbnail: defaultValues?.thumbnail || '',
@@ -151,7 +151,11 @@ const PostForm = ({ defaultValues, isLoading, onSubmit, title }: IProps) => {
           </div>
 
           <div className="flex justify-end mt-6">
-            <Button className="w-44" disabled={isLoading} type="submit">
+            <Button
+              className="w-44 hover:bg-blue-400 bg-blue-500 text-white"
+              disabled={isLoading}
+              type="submit"
+            >
               Confirmar
             </Button>
           </div>
