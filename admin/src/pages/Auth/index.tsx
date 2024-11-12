@@ -88,7 +88,8 @@ const Auth = () => {
                     <Input
                       error={fieldState.error?.message}
                       label="Senha"
-                      maxLength={255}
+                      secure
+                      type="password"
                       {...field}
                     />
                   </FormControl>
