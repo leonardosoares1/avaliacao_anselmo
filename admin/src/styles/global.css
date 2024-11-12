@@ -58,10 +58,6 @@
 }
 
 @layer components {
-  .container-global {
-    @apply max-w-[100rem] min-h-[calc(100vh-5.7rem)] w-full overflow-x-hidden py-10 px-8 mx-auto bg-white;
-  }
-  
   .radio-right {
     @apply  flex py-2 cursor-pointer items-center justify-center rounded-r-md border border-gray-300 text-sm text-gray-500 transition-all duration-300 peer-aria-checked/false:border-blue-400 peer-aria-checked/false:bg-blue-400 peer-aria-checked/false:font-medium peer-aria-checked/false:text-white;
   }
