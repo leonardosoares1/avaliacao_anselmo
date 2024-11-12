@@ -64,6 +64,52 @@ class PostDatabaseRepository implements IPostRepository {
     }
   }
 
+  public async decrementLike(id: number): Promise<void> {
+    try {
+      const post = await this.postRepository.findOneBy({ id });
+      if (!post) {
+        throw new DatabaseError(`Publicação #${id} não encontrada`);
+      }
+      if (post.countLikes === 0) {
+        return;
+      }
+      await this.postRepository.update(
+        {
+          id,
+        },
+        {
+          countLikes: post.countLikes - 1,
+        },
+      );
+    } catch (err) {
+      const error = new CaughtError(err);
+      throw new DatabaseError(error.getMessage());
+    }
+  }
+
+  public async decrementShare(id: number): Promise<void> {
+    try {
+      const post = await this.postRepository.findOneBy({ id });
+      if (!post) {
+        throw new DatabaseError(`Publicação #${id} não encontrada`);
+      }
+      if (post.countShares === 0) {
+        return;
+      }
+      await this.postRepository.update(
+        {
+          id,
+        },
+        {
+          countShares: post.countShares - 1,
+        },
+      );
+    } catch (err) {
+      const error = new CaughtError(err);
+      throw new DatabaseError(error.getMessage());
+    }
+  }
+
   public async disable(id: number): Promise<void> {
     try {
       await this.postRepository.update(
@@ -150,6 +196,46 @@ class PostDatabaseRepository implements IPostRepository {
     } catch (err) {
       const caughtError = new CaughtError(err);
       throw new DatabaseError(caughtError.getMessage());
+    }
+  }
+
+  public async incrementLike(id: number): Promise<void> {
+    try {
+      const post = await this.postRepository.findOneBy({ id });
+      if (!post) {
+        throw new DatabaseError(`Publicação #${id} não encontrada`);
+      }
+      await this.postRepository.update(
+        {
+          id,
+        },
+        {
+          countLikes: post.countLikes + 1,
+        },
+      );
+    } catch (err) {
+      const error = new CaughtError(err);
+      throw new DatabaseError(error.getMessage());
+    }
+  }
+
+  public async incrementShare(id: number): Promise<void> {
+    try {
+      const post = await this.postRepository.findOneBy({ id });
+      if (!post) {
+        throw new DatabaseError(`Publicação #${id} não encontrada`);
+      }
+      await this.postRepository.update(
+        {
+          id,
+        },
+        {
+          countShares: post.countShares + 1,
+        },
+      );
+    } catch (err) {
+      const error = new CaughtError(err);
+      throw new DatabaseError(error.getMessage());
     }
   }
 
