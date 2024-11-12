@@ -1,10 +1,17 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 
+import { Plus } from 'lucide-react';
+
+import { Link } from 'react-router-dom';
+
 import IPagination from 'interfaces/IPagination';
 
 import IPost from 'models/Post';
 
+import pages from '@constants/pages';
+
 import PageTitle from '@components/PageTitle';
+import { Button } from '@components/ui/button';
 import ComponentEmpty from '@components/utils/ComponentEmpty';
 import ComponentError from '@components/utils/Error/List/ComponentError';
 import ComponentLoadingList from '@components/utils/Loading/List';
@@ -12,7 +19,7 @@ import ComponentPaginate from '@components/utils/Paginate';
 
 import PostService from '@services/post/PostService';
 
-import { IRefProps } from './Filter';
+import PostFilter, { FormType, IRefProps } from './Filter';
 import { Body, Header } from './Item';
 
 const PostList = () => {
@@ -67,19 +74,82 @@ const PostList = () => {
     }
   }, []);
 
+  const handleFilter = useCallback(async (data: FormType) => {
+    if (!data.title && !data.status) {
+      return;
+    }
+    setIsLoading(true);
+    setIsError(false);
+    try {
+      const response = await PostService.getAll({
+        page: 1,
+        title: data.title,
+        isActive: data.status === '' ? undefined : data.status,
+      });
+      setPosts(response.list);
+      setPagination({
+        page: response.pagination.current,
+        totalPages: response.pagination.total,
+      });
+    } catch {
+      setIsError(true);
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
+
+  const handleClear = useCallback(async () => {
+    setIsLoading(true);
+    setIsError(false);
+    filterRef.current?.resetForm();
+    try {
+      const { list, pagination } = await PostService.getAll({
+        page: 1,
+      });
+      setPosts(list);
+      setPagination({
+        page: pagination.current,
+        totalPages: pagination.total,
+      });
+    } catch {
+      setIsError(true);
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
+
   useEffect(() => {
     handlePosts();
   }, [handlePosts]);
 
   return (
-    <main className="max-w-[100rem] min-h-[calc(100vh-5.7rem)] w-full overflow-x-hidden py-10 px-8 mx-auto bg-white900">
+    <main className="max-w-[100rem] min-h-[calc(100vh-5.7rem)] w-full overflow-x-hidden py-10 px-8 mx-auto bg-white">
       <PageTitle>Publicações</PageTitle>
+      <div className="grid grid-cols-[auto] justify-end">
+        <Link to={pages.post.create}>
+          <Button>
+            Nova publicação
+            <Plus size={25} strokeWidth={1.5} />
+          </Button>
+        </Link>
+      </div>
+
+      <PostFilter
+        isLoading={isLoading}
+        onClear={handleClear}
+        onSubmit={handleFilter}
+        ref={filterRef}
+      />
 
       <div className="mt-4 rounded-md border border-gray100">
         <Header />
         <ComponentLoadingList show={isLoading} />
         {posts.map((post) => (
-          <Body key={post.id} post={post} />
+          <Body
+            key={post.id}
+            onEdit={() => pages.post.edit(post.id)}
+            post={post}
+          />
         ))}
         <ComponentEmpty
           message="Nenhum tipo de publicação encontrada"

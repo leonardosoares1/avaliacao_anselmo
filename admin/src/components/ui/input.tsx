@@ -64,7 +64,7 @@ const Input = React.forwardRef<HTMLInputElement, IInputProps>(
           className={cn(
             'text-sm font-medium',
             !label && 'hidden',
-            container === 'auth' ? 'text-white' : 'text-gray-200',
+            container === 'auth' ? 'text-white' : 'text-gray-500',
           )}
           htmlFor={id}
         >
@@ -72,11 +72,11 @@ const Input = React.forwardRef<HTMLInputElement, IInputProps>(
         </label>
         <div
           className={cn(
-            'grid items-center gap-3 overflow-hidden rounded-lg border border-gray-100 px-3 transition-all duration-300 has-[:disabled]:cursor-not-allowed has-[:disabled]:border-gray100 has-[:focus]:border-black',
+            'grid items-center gap-3 overflow-hidden rounded-lg border border-gray-100 px-3 transition-all duration-300 has-[:disabled]:cursor-not-allowed has-[:disabled]:border-gray-100 has-[:focus]:border-black',
             inputVariants({ container }),
-            error && 'grid-cols-[1fr_auto] border-red700',
+            error && 'grid-cols-[1fr_auto] border-red-700',
             secure && 'grid-cols-[1fr_auto]',
-            secure && error && 'grid-cols-[1fr_auto_auto] border-red700',
+            secure && error && 'grid-cols-[1fr_auto_auto] border-red-700',
           )}
         >
           <input

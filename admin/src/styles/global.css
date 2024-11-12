@@ -57,6 +57,20 @@
   }
 }
 
+@layer components {
+  .container-global {
+    @apply max-w-[100rem] min-h-[calc(100vh-5.7rem)] w-full overflow-x-hidden py-10 px-8 mx-auto bg-white900;
+  }
+  
+  .radio-right {
+    @apply  flex py-2 cursor-pointer items-center justify-center rounded-r-md border border-gray-100 text-sm text-gray-200 transition-all duration-300 peer-aria-checked/false:border-green-800 peer-aria-checked/false:bg-green-800 peer-aria-checked/false:font-medium peer-aria-checked/false:text-white;
+  }
+
+  .radio-left {
+    @apply flex py-2 cursor-pointer items-center justify-center rounded-l-md border border-gray-100 text-sm text-gray-200 transition-all duration-300 peer-aria-checked/true:border-green-800 peer-aria-checked/true:bg-green-800 peer-aria-checked/true:font-medium peer-aria-checked/true:text-white;
+  }
+}
+
 
 @layer base {
   * {

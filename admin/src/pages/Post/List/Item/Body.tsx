@@ -5,10 +5,15 @@ import IPost from 'models/Post';
 import TableItemsBody from '@components/Table/Body';
 
 interface IProps {
+  onEdit(inputData: IPost): void;
   post: IPost;
 }
 
-const ItemBody = ({ post }: IProps) => {
+const ItemBody = ({ onEdit, post }: IProps) => {
+  function handleEdit(): void {
+    onEdit(post);
+  }
+
   return (
     <div className="grid grid-cols-[4rem_1fr_1fr_15rem_15rem_4rem_6rem] gap-2 p-4 even:bg-white100">
       <TableItemsBody className="text-center">{post.id}</TableItemsBody>
@@ -32,6 +37,7 @@ const ItemBody = ({ post }: IProps) => {
       <TableItemsBody className="grid grid-cols-2 gap-1">
         <button
           className="flex items-center justify-center transition hover:opacity-80"
+          onClick={handleEdit}
           title="Editar tipo de produto"
         >
           <Edit className="text-orange700" size={21} strokeWidth={1.5} />
