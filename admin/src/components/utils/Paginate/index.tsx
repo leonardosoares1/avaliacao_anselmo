@@ -2,6 +2,8 @@ import { useCallback, useMemo } from 'react';
 
 import ReactPaginate from 'react-paginate';
 
+import ComponentIsVisible from '../IsVisible';
+
 interface IProps {
   currentPage?: number;
   onPage(pageSelected: number): void;
@@ -30,11 +32,11 @@ const ComponentPaginate = ({
   );
 
   return (
-    show && (
+    <ComponentIsVisible when={show}>
       <ReactPaginate
         activeClassName="active"
         breakLabel="..."
-        className="bg-blue-100 flex w-9 mt-2 p-2 rounded-md"
+        className="bg-blue-200 flex w-9 mt-2 p-2 rounded-md"
         containerClassName="ulPaginate"
         disableInitialCallback
         initialPage={currentPageFormatted}
@@ -45,7 +47,7 @@ const ComponentPaginate = ({
         pageRangeDisplayed={5}
         previousLabel="‹"
       />
-    )
+    </ComponentIsVisible>
   );
 };
 
