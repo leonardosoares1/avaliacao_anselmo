@@ -1,8 +1,11 @@
-import { Repository } from 'typeorm';
+import { FindOptionsWhere, Repository } from 'typeorm';
 
+import CountPostsInputData from '@modules/posts/repositories/dtos/postRepository/count/InputData';
 import CreatePostInputData from '@modules/posts/repositories/dtos/postRepository/create/InputData';
 import CreatePostOutputData from '@modules/posts/repositories/dtos/postRepository/create/OutputData';
 import FindPostByIdOutputData from '@modules/posts/repositories/dtos/postRepository/findById/OutputData';
+import GetPostsInputData from '@modules/posts/repositories/dtos/postRepository/get/InputData';
+import GetPostsOutputData from '@modules/posts/repositories/dtos/postRepository/get/OutputData';
 import UpdatePostInputData from '@modules/posts/repositories/dtos/postRepository/update/InputData';
 import IPostRepository from '@modules/posts/repositories/IPostRepository';
 
@@ -18,6 +21,25 @@ class PostDatabaseRepository implements IPostRepository {
   constructor() {
     const queryRunner = databaseAdapter.getQueryRunner();
     this.postRepository = queryRunner.manager.getRepository(PostMapper);
+  }
+
+  public async count(inputData: CountPostsInputData): Promise<number> {
+    try {
+      const whereConditions: FindOptionsWhere<PostMapper> = {};
+      if (inputData.filterIsActive !== undefined) {
+        whereConditions.isActive = inputData.filterIsActive;
+      }
+      if (inputData.filterTitle) {
+        whereConditions.title = inputData.filterTitle;
+      }
+      const counter = await this.postRepository.count({
+        where: whereConditions,
+      });
+      return counter;
+    } catch (err) {
+      const caughtError = new CaughtError(err);
+      throw new DatabaseError(caughtError.getMessage());
+    }
   }
 
   public async create(
@@ -96,6 +118,38 @@ class PostDatabaseRepository implements IPostRepository {
     } catch (err) {
       const error = new CaughtError(err);
       throw new DatabaseError(error.getMessage());
+    }
+  }
+
+  public async get(inputData: GetPostsInputData): Promise<GetPostsOutputData> {
+    try {
+      const whereConditions: FindOptionsWhere<PostMapper> = {};
+      if (inputData.filterIsActive !== undefined) {
+        whereConditions.isActive = inputData.filterIsActive;
+      }
+      if (inputData.filterTitle) {
+        whereConditions.title = inputData.filterTitle;
+      }
+      const posts = await this.postRepository.find({
+        where: whereConditions,
+        take: inputData.paginationLimit,
+        skip: inputData.paginationOffset,
+      });
+      const output = new GetPostsOutputData({
+        list: posts.map(post => ({
+          counterLikes: post.countLikes,
+          counterShares: post.countShares,
+          id: post.id,
+          isActive: post.isActive,
+          subtitle: post.subtitle,
+          thumbnail: post.thumbnail,
+          title: post.title,
+        })),
+      });
+      return output;
+    } catch (err) {
+      const caughtError = new CaughtError(err);
+      throw new DatabaseError(caughtError.getMessage());
     }
   }
 

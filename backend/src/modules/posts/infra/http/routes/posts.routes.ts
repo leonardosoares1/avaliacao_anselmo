@@ -8,13 +8,15 @@ import validation from '../middlewares/validations/PostsController';
 const router = Router();
 const isAdminAuthenticated = new IsAdminAuthenticated();
 
+router.get('/', controller.index);
+
 router.post(
   '/',
   [isAdminAuthenticated.execute, validation.store],
   controller.store,
 );
 
-router.get('/:id', [isAdminAuthenticated.execute], controller.show);
+router.get('/:id', controller.show);
 
 router.put(
   '/:id',
