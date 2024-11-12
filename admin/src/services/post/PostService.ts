@@ -22,6 +22,13 @@ interface ICreateBody {
   title: string;
 }
 
+interface IParamsRequest {
+  is_active?: '0' | '1';
+  page?: number;
+  rows_per_page?: number;
+  title?: string;
+}
+
 interface IGetPostDetailsResponse {
   content: string;
   id: number;
@@ -77,7 +84,7 @@ class PostService implements IPostRepository {
   }
 
   public async getAll(inputData: IGetAllInputData): Promise<IGetAllOutputData> {
-    const params = {
+    const params: IParamsRequest = {
       is_active: inputData.is_active,
       title: inputData.title,
     };
