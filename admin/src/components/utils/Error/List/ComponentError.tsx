@@ -11,7 +11,7 @@ const ComponentError = ({ message, onClick }: IProps) => {
       <img alt="Erro" className="mb-6 w-full max-w-40" src={tryAgain} />
       <p className="text-sm text-black900">{message}</p>
       <button
-        className="mt-4 h-8 rounded-lg border-0 bg-blue-500 px-6 text-sm font-medium text-white hover:bg-blue-600"
+        className="mt-4 h-8 rounded-lg border-0 bg-black px-6 text-sm font-medium text-white hover:brightness-85"
         onClick={onClick}
       >
         Tentar novamente

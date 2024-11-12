@@ -16,7 +16,7 @@ import {
 const inputVariants = cva(undefined, {
   variants: {
     container: {
-      default: 'border-gray-100',
+      default: 'border-gray-300',
       auth: 'has-[:focus]:border-blue-500 border-gray-200 bg-backgroundRgba [&>input]:text-white',
     },
   },
@@ -72,7 +72,7 @@ const Input = React.forwardRef<HTMLInputElement, IInputProps>(
         </label>
         <div
           className={cn(
-            'grid items-center gap-3 overflow-hidden rounded-lg border border-gray-100 px-3 transition-all duration-300 has-[:disabled]:cursor-not-allowed has-[:disabled]:border-gray-100 has-[:focus]:border-black',
+            'grid items-center gap-3 overflow-hidden rounded-lg border border-gray-500 px-3 transition-all duration-300 has-[:disabled]:cursor-not-allowed has-[:disabled]:border-gray-500 has-[:focus]:border-black',
             inputVariants({ container }),
             error && 'grid-cols-[1fr_auto] border-red-700',
             secure && 'grid-cols-[1fr_auto]',
@@ -82,7 +82,7 @@ const Input = React.forwardRef<HTMLInputElement, IInputProps>(
           <input
             {...props}
             className={cn(
-              'peer h-9 w-full border-0 bg-[transparent] py-1 text-sm text-black outline-none ring-0 file:border-0 placeholder:text-gray-200 disabled:cursor-not-allowed disabled:opacity-50',
+              'peer h-9 w-full border-0 bg-[transparent] py-1 text-sm text-black outline-none ring-0 file:border-0 placeholder:text-gray-500 disabled:cursor-not-allowed disabled:opacity-50',
               className,
             )}
             id={id}
@@ -92,7 +92,7 @@ const Input = React.forwardRef<HTMLInputElement, IInputProps>(
 
           <button
             className={cn(
-              'text-gray-200 peer-disabled:cursor-not-allowed peer-disabled:opacity-50',
+              'text-gray-500 peer-disabled:cursor-not-allowed peer-disabled:opacity-50',
               !secure && 'hidden',
             )}
             onClick={handleToggleSecure}

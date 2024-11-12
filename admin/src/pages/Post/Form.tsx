@@ -35,11 +35,11 @@ const PostForm = ({ defaultValues, isLoading, onSubmit, title }: IProps) => {
   const form = useForm<FormType>({
     resolver: zodResolver(schema),
     defaultValues: {
-      isActive: '1',
-      content: '',
-      subtitle: '',
-      thumbnail: '',
-      title: '',
+      isActive: defaultValues?.isActive ? '1' : '0',
+      content: defaultValues?.content || '',
+      subtitle: defaultValues?.subtitle || '',
+      thumbnail: defaultValues?.thumbnail || '',
+      title: defaultValues?.title || '',
     },
   });
 

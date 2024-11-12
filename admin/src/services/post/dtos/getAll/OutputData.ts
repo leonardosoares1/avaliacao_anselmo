@@ -1,6 +1,7 @@
 interface IGetAllOutputData {
   list: {
-    content: string;
+    counterLikes: number;
+    counterShares: number;
     id: number;
     isActive: boolean;
     subtitle: string;
@@ -8,8 +9,8 @@ interface IGetAllOutputData {
     title: string;
   }[];
   pagination: {
-    current: number;
-    total: number;
+    current_page: number;
+    total_page: number;
   };
 }
 

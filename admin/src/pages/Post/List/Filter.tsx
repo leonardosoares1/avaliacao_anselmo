@@ -24,7 +24,7 @@ import {
 
 export interface IRefProps {
   getFormData(): {
-    status: '1' | '0' | '';
+    is_active: '1' | '0' | '';
     title: string;
   };
   resetForm(): void;
@@ -32,7 +32,7 @@ export interface IRefProps {
 
 const formSchema = z.object({
   title: z.string(),
-  status: z.enum(['1', '0', '']),
+  is_active: z.enum(['1', '0', '']),
 });
 
 const statusOptions = [
@@ -57,7 +57,7 @@ const PostFilter: ForwardRefRenderFunction<IRefProps, IProps> = (
     reValidateMode: 'onBlur',
     defaultValues: {
       title: '',
-      status: '',
+      is_active: '',
     },
   });
 
@@ -87,7 +87,7 @@ const PostFilter: ForwardRefRenderFunction<IRefProps, IProps> = (
         />
         <FormField
           control={form.control}
-          name="status"
+          name="is_active"
           render={({ field, fieldState }) => (
             <Select onValueChange={field.onChange} value={field.value}>
               <FormControl>

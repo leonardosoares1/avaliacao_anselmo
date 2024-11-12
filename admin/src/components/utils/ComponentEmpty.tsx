@@ -1,5 +1,7 @@
 import notFound from '@assets/utils/empty.svg';
 
+import ComponentIsVisible from './IsVisible';
+
 interface IComponentEmptyProps {
   message: string;
   show: boolean;
@@ -7,7 +9,7 @@ interface IComponentEmptyProps {
 
 const ComponentEmpty = ({ message, show }: IComponentEmptyProps) => {
   return (
-    show && (
+    <ComponentIsVisible when={show}>
       <div className="flex flex-col items-center justify-center p-12">
         <img
           alt="Erro 404"
@@ -16,7 +18,7 @@ const ComponentEmpty = ({ message, show }: IComponentEmptyProps) => {
         />
         <p className="text-lg font-normal">{message}</p>
       </div>
-    )
+    </ComponentIsVisible>
   );
 };
 

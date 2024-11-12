@@ -34,6 +34,7 @@ const ComponentPaginate = ({
       <ReactPaginate
         activeClassName="active"
         breakLabel="..."
+        className="bg-blue-100 flex w-9 mt-2 p-2 rounded-md"
         containerClassName="ulPaginate"
         disableInitialCallback
         initialPage={currentPageFormatted}

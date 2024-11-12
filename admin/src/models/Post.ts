@@ -1,5 +1,6 @@
 interface IPost {
-  content: string;
+  counterLikes: number;
+  counterShares: number;
   id: number;
   isActive: boolean;
   subtitle: string;

@@ -23,8 +23,8 @@ import {
 const selectVariants = cva(undefined, {
   variants: {
     container: {
-      default: 'border-gray100',
-      auth: 'has-[:focus]:border-orange700 border-gray200 bg-backgroundRgba [&>button]:text-white900',
+      default: 'border-gray-300',
+      auth: 'has-[:focus]:border-orange-700 border-gray-200 bg-backgroundRgba [&>button]:text-white',
     },
   },
   defaultVariants: {
@@ -61,7 +61,7 @@ const SelectTrigger = React.forwardRef<
           className={cn(
             'text-sm font-medium',
             !label && 'hidden',
-            container === 'auth' ? 'text-white' : 'text-gray-200',
+            container === 'auth' ? 'text-white' : 'text-gray-500',
           )}
           htmlFor={id}
         >
@@ -71,9 +71,9 @@ const SelectTrigger = React.forwardRef<
           className={cn(
             'grid items-center gap-1 rounded-lg border border-gray-100 px-3 transition-all duration-300 has-[:disabled]:cursor-not-allowed has-[:disabled]:border-gray100 has-[:focus]:border-black',
             selectVariants({ container }),
-            error && 'grid-cols-[1fr_auto] border-red700',
+            error && 'grid-cols-[1fr_auto] border-red-700',
             !!onClear && 'grid-cols-[1fr_auto]',
-            onClear && error && 'grid-cols-[1fr_auto_auto] border-red700',
+            onClear && error && 'grid-cols-[1fr_auto_auto] border-red-700',
           )}
         >
           <SelectPrimitive.Trigger
@@ -87,7 +87,7 @@ const SelectTrigger = React.forwardRef<
           >
             {children}
             <SelectPrimitive.Icon asChild>
-              <CaretSortIcon className="h-6 w-6 text-gray-200" />
+              <CaretSortIcon className="h-6 w-6 text-gray-500" />
             </SelectPrimitive.Icon>
           </SelectPrimitive.Trigger>
           <button
@@ -96,7 +96,7 @@ const SelectTrigger = React.forwardRef<
             title="Limpar"
             type="button"
           >
-            <X className="text-gray-200" size={20} strokeWidth={1.2} />
+            <X className="text-gray-500" size={20} strokeWidth={1.2} />
           </button>
 
           <TooltipProvider>
@@ -160,7 +160,7 @@ const SelectContent = React.forwardRef<
   <SelectPrimitive.Portal>
     <SelectPrimitive.Content
       className={cn(
-        'relative z-50 max-h-96 min-w-[8rem] overflow-hidden rounded-lg border border-gray100 bg-white text-black data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2',
+        'relative z-50 max-h-96 min-w-[8rem] overflow-hidden rounded-lg border border-gray-100 bg-white text-black data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2',
         position === 'popper' &&
           'data-[side=bottom]:translate-y-1 data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=top]:-translate-y-1',
         className,

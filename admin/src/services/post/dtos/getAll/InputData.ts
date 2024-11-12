@@ -1,7 +1,7 @@
 interface IGetAllInputData {
-  isActive?: '0' | '1';
+  is_active?: '0' | '1';
   page?: number;
-  rowsPerPage?: number;
+  rows_per_page?: number;
   title?: string;
 }
 

@@ -1,3 +1,5 @@
+import ComponentIsVisible from '../IsVisible';
+
 interface IProps {
   rows?: number;
   show: boolean;
@@ -11,7 +13,7 @@ const ComponentLoadingList = ({ rows = 5, show }: IProps) => {
   }
 
   return (
-    show && (
+    <ComponentIsVisible when={show}>
       <div>
         {loadingItems.map((position) => (
           <div
@@ -20,7 +22,7 @@ const ComponentLoadingList = ({ rows = 5, show }: IProps) => {
           />
         ))}
       </div>
-    )
+    </ComponentIsVisible>
   );
 };
 
