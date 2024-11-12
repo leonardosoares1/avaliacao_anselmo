@@ -22,6 +22,15 @@ interface ICreateBody {
   title: string;
 }
 
+interface IGetPostDetailsResponse {
+  content: string;
+  id: number;
+  is_active: boolean;
+  subtitle: string;
+  thumbnail: string;
+  title: string;
+}
+
 export interface IPost {
   counterLikes: number;
   counterShares: number;
@@ -38,15 +47,6 @@ interface IPostResponse {
     current_page: number;
     total_page: number;
   };
-}
-
-interface IGetPostDetailsResponse {
-  content: string;
-  id: number;
-  is_active: boolean;
-  subtitle: string;
-  thumbnail: string;
-  title: string;
 }
 
 interface IUpdateBody {

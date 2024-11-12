@@ -169,7 +169,7 @@ const PostList = () => {
             />
           ))}
           <ComponentEmpty
-            message="Nenhum tipo de publicação encontrada"
+            message="Nenhuma publicação encontrada"
             show={!isLoading && !isError && posts.length === 0}
           />
         </div>

@@ -18,7 +18,6 @@ class AuthService implements IAuthRepository {
       password: inputData.password,
     };
     const response = await httpClient.post('/sessions', body);
-
     const outputData: ICreateOutputData = {
       token: response.data.token,
     };
@@ -31,13 +30,10 @@ class AuthService implements IAuthRepository {
         email: inputData.email,
         password: inputData.password,
       };
-
       const postResponse = await httpClient.post('/sessions', body);
       const token = postResponse.data.token;
-
       const getResponse = await httpClient.get('/sessions');
       const type = getResponse.data.type;
-
       return { token, type };
     } catch (err) {
       throw new Error('Erro ao realizar login');

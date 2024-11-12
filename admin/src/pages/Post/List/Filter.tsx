@@ -31,8 +31,8 @@ export interface IRefProps {
 }
 
 const formSchema = z.object({
-  title: z.string(),
   is_active: z.enum(['1', '0', '']),
+  title: z.string(),
 });
 
 const statusOptions = [
@@ -56,8 +56,8 @@ const PostFilter: ForwardRefRenderFunction<IRefProps, IProps> = (
     resolver: zodResolver(formSchema),
     reValidateMode: 'onBlur',
     defaultValues: {
-      title: '',
       is_active: '',
+      title: '',
     },
   });
 

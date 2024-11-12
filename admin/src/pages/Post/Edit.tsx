@@ -15,47 +15,14 @@ import helpers from '@helpers/index';
 import PostForm, { FormType } from './Form';
 
 const PostEdit = () => {
-  const toast = useToast();
-  const params = useParams();
   const navigate = useNavigate();
+  const params = useParams();
+  const toast = useToast();
 
   const [details, setDetails] = useState<IPostDetails | null>(null);
+  const [initialData, setInitialData] = useState<IPostDetails | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isLoadingDetails, setIsLoadingDetails] = useState<boolean>(false);
-  const [initialData, setInitialData] = useState<IPostDetails | null>(null);
-
-  const loadPostInfo = useCallback(async () => {
-    setIsLoadingDetails(true);
-    try {
-      const response = await PostService.getDetails({
-        id: params.id as string,
-      });
-      if (!response) {
-        navigate(pages.post.list, { replace: true });
-        return;
-      }
-      setDetails(response);
-    } catch (error) {
-      helpers.errorHandling(error);
-      navigate(pages.post.list, { replace: true });
-    } finally {
-      setIsLoadingDetails(false);
-    }
-  }, [navigate, params.id]);
-
-  const handleSetInitialData = useCallback(() => {
-    if (details) {
-      const initialData: IPostDetails = {
-        id: details.id,
-        content: details.content,
-        isActive: details.isActive,
-        subtitle: details.subtitle,
-        thumbnail: details.thumbnail,
-        title: details.title,
-      };
-      setInitialData(initialData);
-    }
-  }, [details]);
 
   const handleEditPost = useCallback(
     async (data: FormType) => {
@@ -81,6 +48,39 @@ const PostEdit = () => {
     },
     [navigate, params.id, toast],
   );
+
+  const handleSetInitialData = useCallback(() => {
+    if (details) {
+      const initialData: IPostDetails = {
+        id: details.id,
+        content: details.content,
+        isActive: details.isActive,
+        subtitle: details.subtitle,
+        thumbnail: details.thumbnail,
+        title: details.title,
+      };
+      setInitialData(initialData);
+    }
+  }, [details]);
+
+  const loadPostInfo = useCallback(async () => {
+    setIsLoadingDetails(true);
+    try {
+      const response = await PostService.getDetails({
+        id: params.id as string,
+      });
+      if (!response) {
+        navigate(pages.post.list, { replace: true });
+        return;
+      }
+      setDetails(response);
+    } catch (error) {
+      helpers.errorHandling(error);
+      navigate(pages.post.list, { replace: true });
+    } finally {
+      setIsLoadingDetails(false);
+    }
+  }, [navigate, params.id]);
 
   useEffect(() => {
     loadPostInfo();

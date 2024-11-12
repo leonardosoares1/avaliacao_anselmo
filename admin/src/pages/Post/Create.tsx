@@ -13,9 +13,8 @@ import helpers from '@helpers/index';
 import PostForm, { FormType } from './Form';
 
 const PostCreate = () => {
-  const toast = useToast();
-
   const navigate = useNavigate();
+  const toast = useToast();
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
 

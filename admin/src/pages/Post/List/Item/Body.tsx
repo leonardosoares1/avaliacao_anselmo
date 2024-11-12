@@ -16,7 +16,7 @@ const ItemBody = ({ onEdit, openStatusModal, post }: IProps) => {
   }
 
   return (
-    <div className="grid grid-cols-[4rem_1fr_15rem_15rem_4rem_6rem] gap-2 p-4 even:bg-white100">
+    <div className="grid grid-cols-[4rem_1fr_15rem_15rem_4rem_6rem] gap-2 p-4 even:bg-gray-100">
       <TableItemsBody className="text-center">{post.id}</TableItemsBody>
       <TableItemsBody>{post.title}</TableItemsBody>
       <TableItemsBody>{post.subtitle}</TableItemsBody>
@@ -38,22 +38,18 @@ const ItemBody = ({ onEdit, openStatusModal, post }: IProps) => {
           )}
         </div>
       </TableItemsBody>
-      <TableItemsBody className="grid grid-cols-2 gap-1">
+      <TableItemsBody className="flex justify-center gap-4">
         <button
           className="flex items-center justify-center transition hover:opacity-80"
           onClick={handleEdit}
-          title="Editar tipo de produto"
+          title="Editar publicação"
         >
           <Edit className="text-orange-700" size={21} strokeWidth={1.5} />
         </button>
         <button
           className="flex items-center justify-center transition hover:opacity-80"
           onClick={openStatusModal}
-          title={
-            post.isActive
-              ? 'Desativar tipo de produto'
-              : 'Ativar tipo de produto'
-          }
+          title={post.isActive ? 'Desativar publicação' : 'Ativar publicação'}
         >
           {post.isActive ? (
             <Ban className="text-red-700" size={21} strokeWidth={1.5} />

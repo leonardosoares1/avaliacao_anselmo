@@ -16,9 +16,9 @@ import errorsValidation from '@errors/validation';
 
 const schema = z.object({
   isActive: z.enum(['1', '0']),
-  title: z.string().trim().min(1, { message: errorsValidation.required }),
-  subtitle: z.string().trim().min(1, { message: errorsValidation.required }),
   content: z.string().trim().min(1, { message: errorsValidation.required }),
+  subtitle: z.string().trim().min(1, { message: errorsValidation.required }),
+  title: z.string().trim().min(1, { message: errorsValidation.required }),
   thumbnail: z.string().trim().min(1, { message: errorsValidation.required }),
 });
 

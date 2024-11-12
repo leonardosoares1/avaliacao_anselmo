@@ -55,8 +55,8 @@ const PostChangeStatus: ForwardRefRenderFunction<IRefProps, IProps> = (
 
   const handleOpen = useCallback((inputData: IOpenInputData): void => {
     setInfo({
-      isActive: inputData.isActive,
       id: inputData.id,
+      isActive: inputData.isActive,
       title: inputData.title,
     });
     setIsOpen(true);
