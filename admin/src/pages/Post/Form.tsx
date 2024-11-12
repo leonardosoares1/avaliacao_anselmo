@@ -48,7 +48,7 @@ const PostForm = ({ defaultValues, isLoading, onSubmit, title }: IProps) => {
       <PageTitle canGoBack>{title}</PageTitle>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
-          <p className="mb-2 text-base font-medium text-blue-800">
+          <p className="mb-2 text-base font-medium text-blue-400">
             Dados gerais
           </p>
           <div
