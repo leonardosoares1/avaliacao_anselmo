@@ -14,6 +14,12 @@ import helpers from '@helpers/index';
 
 import PostForm, { FormType } from './Form';
 
+const formatHtml = (html: string): string => {
+  const div = document.createElement('div');
+  div.innerHTML = html;
+  return div.textContent || div.innerText || '';
+};
+
 const PostEdit = () => {
   const navigate = useNavigate();
   const params = useParams();
@@ -30,7 +36,7 @@ const PostEdit = () => {
       try {
         await PostService.update({
           id: params.id as string,
-          content: data.content,
+          content: formatHtml(data.content),
           subtitle: data.subtitle,
           thumbnail: data.thumbnail,
           title: data.title,

@@ -18,13 +18,19 @@ const PostCreate = () => {
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
+  const formatHtml = (html: string): string => {
+    const div = document.createElement('div');
+    div.innerHTML = html;
+    return div.textContent || div.innerText || '';
+  };
+
   const createPost = useCallback(
     async (data: FormType) => {
       setIsLoading(true);
       try {
         await PostService.create({
           isActive: Boolean(Number(data.isActive)),
-          content: data.content,
+          content: formatHtml(data.content),
           title: data.title,
           subtitle: data.subtitle,
           thumbnail: data.thumbnail,

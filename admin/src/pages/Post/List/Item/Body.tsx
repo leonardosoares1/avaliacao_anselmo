@@ -16,15 +16,15 @@ const ItemBody = ({ onEdit, openStatusModal, post }: IProps) => {
   }
 
   return (
-    <div className="grid grid-cols-[4rem_1fr_15rem_15rem_4rem_6rem] gap-2 p-4 even:bg-gray-100">
+    <div className="grid grid-cols-[4rem_1fr_25rem_15rem_4rem_6rem] gap-2 p-4 even:bg-gray-100 items-center">
       <TableItemsBody className="text-center">{post.id}</TableItemsBody>
       <TableItemsBody>{post.title}</TableItemsBody>
       <TableItemsBody>{post.subtitle}</TableItemsBody>
-      <TableItemsBody>{post.thumbnail}</TableItemsBody>
+      <TableItemsBody isThumbnail>{post.thumbnail}</TableItemsBody>
 
       <TableItemsBody>
         <div
-          className="flex justify-center"
+          className="flex justify-center items-center"
           title={post.isActive ? 'Ativo' : 'Desativado'}
         >
           {post.isActive ? (
@@ -38,7 +38,7 @@ const ItemBody = ({ onEdit, openStatusModal, post }: IProps) => {
           )}
         </div>
       </TableItemsBody>
-      <TableItemsBody className="flex justify-center gap-4">
+      <TableItemsBody className="grid grid-cols-2 gap-1">
         <button
           className="flex items-center justify-center transition hover:opacity-80"
           onClick={handleEdit}

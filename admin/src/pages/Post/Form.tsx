@@ -1,7 +1,13 @@
+import { useCallback, useEffect, useState } from 'react';
+
+import SunEditor from 'suneditor-react';
+
 import { useForm } from 'react-hook-form';
 
+import 'suneditor/dist/css/suneditor.min.css';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { cn } from '@lib/utils';
+import { pt_br as ptBr } from 'suneditor/src/lang';
 import { z } from 'zod';
 
 import IPostDetails from '@models/PostDetails';
@@ -32,6 +38,10 @@ interface IProps {
 }
 
 const PostForm = ({ defaultValues, isLoading, onSubmit, title }: IProps) => {
+  const [bodyContent, setBodyContent] = useState<string>(
+    defaultValues?.content || '',
+  );
+
   const form = useForm<FormType>({
     resolver: zodResolver(schema),
     defaultValues: {
@@ -42,6 +52,18 @@ const PostForm = ({ defaultValues, isLoading, onSubmit, title }: IProps) => {
       title: defaultValues?.title || '',
     },
   });
+
+  const handleSetBodyContent = useCallback(
+    (text: string) => {
+      setBodyContent(text);
+      form.setValue('content', text);
+    },
+    [form],
+  );
+
+  useEffect(() => {
+    form.setValue('content', bodyContent);
+  }, [bodyContent, form]);
 
   return (
     <main className="max-w-[100rem] min-h-[calc(100vh-5.7rem)] w-full overflow-x-hidden py-10 px-8 mx-auto bg-white">
@@ -55,8 +77,8 @@ const PostForm = ({ defaultValues, isLoading, onSubmit, title }: IProps) => {
             className={cn(
               'mb-4 grid gap-3',
               !defaultValues?.id
-                ? 'grid-cols-[1fr_1fr_1fr_repeat(2,10rem)]'
-                : 'grid-cols-[1fr_1fr_1fr_10rem]',
+                ? 'grid-cols-[repeat(3,1fr)_10rem]'
+                : 'grid-cols-[repeat(3,1fr)]',
             )}
           >
             <FormField
@@ -89,26 +111,12 @@ const PostForm = ({ defaultValues, isLoading, onSubmit, title }: IProps) => {
             />
             <FormField
               control={form.control}
-              name="content"
-              render={({ field, fieldState }) => (
-                <FormControl>
-                  <Input
-                    error={fieldState.error?.message}
-                    label="Conteúdo"
-                    maxLength={255}
-                    {...field}
-                  />
-                </FormControl>
-              )}
-            />
-            <FormField
-              control={form.control}
               name="thumbnail"
               render={({ field, fieldState }) => (
                 <FormControl>
                   <Input
                     error={fieldState.error?.message}
-                    label="Thumbnail"
+                    label="Link imagem"
                     maxLength={255}
                     {...field}
                   />
@@ -148,6 +156,30 @@ const PostForm = ({ defaultValues, isLoading, onSubmit, title }: IProps) => {
                 )}
               />
             )}
+          </div>
+          <p className="mb-2 text-sm font-medium text-gray-500">Conteúdo</p>
+          <div className="min-h-[30rem] w-full rounded-md border border-gray100 bg-white p-1 font-normal">
+            <SunEditor
+              lang={ptBr}
+              onChange={handleSetBodyContent}
+              setContents={bodyContent}
+              setOptions={{
+                mode: 'classic',
+                maxHeight: '30rem',
+                minHeight: '30rem',
+                defaultStyle:
+                  'font-family: Nunito Sans, sans-serif; font-size: 14px',
+                fontSize: [14, 16, 18, 20, 24, 36],
+                formats: ['p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'],
+                buttonList: [
+                  ['undo', 'redo', 'fontSize', 'formatBlock'],
+                  ['bold', 'underline', 'italic', 'strike'],
+                  ['fontColor', 'hiliteColor', 'textStyle'],
+                  ['align', 'list'],
+                  ['table', 'image'],
+                ],
+              }}
+            />
           </div>
 
           <div className="flex justify-end mt-6">

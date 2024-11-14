@@ -2,9 +2,17 @@ import React, { PropsWithChildren } from 'react';
 
 import { cn } from '@lib/utils';
 
-const TableItemsBody: React.FC<
-  PropsWithChildren<React.ButtonHTMLAttributes<HTMLDivElement>>
-> = ({ children, className, title }) => {
+interface ITableItemsBodyProps
+  extends React.ButtonHTMLAttributes<HTMLDivElement> {
+  isThumbnail?: boolean;
+}
+
+const TableItemsBody: React.FC<PropsWithChildren<ITableItemsBodyProps>> = ({
+  children,
+  className,
+  isThumbnail,
+  title,
+}) => {
   return (
     <div
       className={cn(
@@ -13,7 +21,15 @@ const TableItemsBody: React.FC<
       )}
       title={title}
     >
-      {children}
+      {isThumbnail ? (
+        <img
+          alt={title}
+          className="w-16 h-16  object-cover"
+          src={children as string}
+        />
+      ) : (
+        children
+      )}
     </div>
   );
 };
